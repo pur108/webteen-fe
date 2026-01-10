@@ -1,5 +1,12 @@
 {
   "HomePage": {
     "title": "Welcome to WebTeen!"
+  },
+  "Header": {
+    "title": "WebTeen",
+    "login": "Login",
+    "signup": "Sign up",
+    "settings": "Settings",
+    "language": "Interface Language"
   }
 }

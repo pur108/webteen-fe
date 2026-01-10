@@ -1,14 +1,14 @@
 "use client";
 
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { api } from "@/src/lib/api";
+import { api } from "@/lib/api";
 import type {
   Comic,
   Chapter,
   Tag,
   CreateComicInput,
   CreateChapterInput,
-} from "@/src/schemas/comic";
+} from "@/schemas/comic";
 
 export function useComics(tags?: string) {
   return useQuery({

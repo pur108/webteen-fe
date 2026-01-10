@@ -1,5 +1,12 @@
 {
     "HomePage": {
         "title": "ยินดีต้อนรับสู่ WebTeen!"
+    },
+    "Header": {
+        "title": "WebTeen",
+        "login": "เข้าสู่ระบบ",
+        "signup": "สมัครสมาชิก",
+        "settings": "การตั้งค่า",
+        "language": "ภาษาอินเทอร์เฟซ"
     }
 }

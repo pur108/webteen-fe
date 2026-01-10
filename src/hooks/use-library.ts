@@ -1,10 +1,10 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { api } from "@/src/lib/api";
+import { api } from "@/lib/api";
 import type {
   LibraryFolder,
   LibraryFolderItem,
   CreateFolderInput,
-} from "@/src/schemas/library";
+} from "@/schemas/library";
 
 export function useLibrary() {
   return useQuery({
