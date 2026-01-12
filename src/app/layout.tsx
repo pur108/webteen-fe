@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 import { NextIntlClientProvider } from "next-intl";
+import { QueryProvider } from "@/providers/query-provider";
 import Header from "@/components/header/header";
 
 const geistSans = Geist({
@@ -30,10 +31,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen pt-16`}
       >
-        <NextIntlClientProvider>
-          <Header />
-          <main className="min-h-[calc(100vh-4rem)]">{children}</main>
-        </NextIntlClientProvider>
+        <QueryProvider>
+          <NextIntlClientProvider>
+            <Header />
+            <main className="min-h-[calc(100vh-4rem)]">{children}</main>
+          </NextIntlClientProvider>
+        </QueryProvider>
       </body>
     </html>
   );

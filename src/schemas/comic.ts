@@ -11,7 +11,7 @@ export const tagSchema = z.object({
   id: z.uuid(),
   slug: z.string(),
   type: z.string(),
-  translations: z.array(tagTranslationSchema).optional(),
+  translations: z.array(tagTranslationSchema).optional().nullable(),
   created_at: z.string().optional(),
   updated_at: z.string().optional(),
 });
@@ -21,8 +21,8 @@ export const comicTranslationSchema = z.object({
   comic_id: z.uuid(),
   language_code: z.string(),
   title: z.string(),
-  synopsis: z.string().optional(),
-  alternative_title: z.string().optional(),
+  synopsis: z.string().optional().nullable(),
+  alternative_title: z.string().optional().nullable(),
   created_at: z.string().optional(),
   updated_at: z.string().optional(),
 });
@@ -31,7 +31,7 @@ export const chapterTranslationSchema = z.object({
   id: z.uuid(),
   chapter_id: z.uuid(),
   language_code: z.string(),
-  title: z.string().optional(),
+  title: z.string().optional().nullable(),
 });
 
 export const chapterImageSchema = z.object({
@@ -54,17 +54,17 @@ export const chapterSchema = z.object({
       "chapter_rejected",
     ])
     .optional(),
-  thumbnail_url: z.string().optional(),
+  thumbnail_url: z.string().optional().nullable(),
   published_at: z.string().nullable().optional(),
-  images: z.array(chapterImageSchema).optional(),
-  translations: z.array(chapterTranslationSchema).optional(),
+  images: z.array(chapterImageSchema).optional().nullable(),
+  translations: z.array(chapterTranslationSchema).optional().nullable(),
 });
 
 export const comicSchema = z.object({
   id: z.uuid(),
   creator_id: z.uuid(),
-  author: z.string(), // Remove optional if required
-  tags: z.array(tagSchema).optional(),
+  author: z.string(),
+  tags: z.array(tagSchema).optional().nullable(),
   cover_image_url: z.string(),
   publish_status: z.enum([
     "comic_draft",
@@ -78,13 +78,15 @@ export const comicSchema = z.object({
   nsfw: z.boolean().optional(),
   schedule_publish_at: z.string().nullable().optional(),
   approved_at: z.string().nullable().optional(),
-  rejection_reason: z.string().optional(),
+  rejection_reason: z.string().optional().nullable(),
   created_at: z.string(),
   updated_at: z.string(),
-  translations: z.array(comicTranslationSchema).optional(),
-  chapters: z.array(chapterSchema).optional(),
+  translations: z.array(comicTranslationSchema).optional().nullable(),
+  chapters: z.array(chapterSchema).optional().nullable(),
   views: z.number().optional(),
 });
+
+export const comicsResponseSchema = z.array(comicSchema);
 
 export const comicAuthorSchema = z.object({
   id: z.uuid(),

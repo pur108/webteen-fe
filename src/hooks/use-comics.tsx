@@ -2,25 +2,45 @@
 
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api";
-import type {
-  Comic,
-  Chapter,
-  Tag,
-  CreateComicInput,
-  CreateChapterInput,
+import {
+  comicsResponseSchema,
+  comicSchema,
+  chapterSchema,
+  type Comic,
+  type Chapter,
+  type Tag,
+  type CreateComicInput,
+  type CreateChapterInput,
 } from "@/schemas/comic";
 
 export function useComics(tags?: string) {
   return useQuery({
     queryKey: ["comics", tags],
-    queryFn: () => api.get<Comic[]>(`/comics${tags ? `?tags=${tags}` : ""}`),
+    queryFn: async () => {
+      const response = await api.get<{ data: unknown }>(
+        `/comics${tags ? `?tags=${tags}` : ""}`
+      );
+      console.log("API response:", response);
+      const result = comicsResponseSchema.safeParse(response.data);
+      if (!result.success) {
+        console.error(
+          "Zod validation error:",
+          JSON.stringify(result.error.issues, null, 2)
+        );
+        throw result.error;
+      }
+      return result.data;
+    },
   });
 }
 
 export function useComic(id: string) {
   return useQuery({
     queryKey: ["comic", id],
-    queryFn: () => api.get<Comic>(`/comics/${id}`),
+    queryFn: async () => {
+      const data = await api.get<unknown>(`/comics/${id}`);
+      return comicSchema.parse(data);
+    },
     enabled: !!id,
   });
 }
@@ -28,7 +48,10 @@ export function useComic(id: string) {
 export function useChapter(id: string) {
   return useQuery({
     queryKey: ["chapter", id],
-    queryFn: () => api.get<Chapter>(`/chapters/${id}`),
+    queryFn: async () => {
+      const data = await api.get<unknown>(`/chapters/${id}`);
+      return chapterSchema.parse(data);
+    },
     enabled: !!id,
   });
 }
