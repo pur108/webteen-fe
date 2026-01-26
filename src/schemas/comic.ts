@@ -1,14 +1,14 @@
 import { z } from "zod";
 
 export const tagTranslationSchema = z.object({
-  id: z.uuid(),
-  tag_id: z.uuid(),
+  id: z.string(),
+  tag_id: z.string(),
   language: z.string(),
   name: z.string(),
 });
 
 export const tagSchema = z.object({
-  id: z.uuid(),
+  id: z.string(),
   slug: z.string(),
   type: z.string(),
   translations: z.array(tagTranslationSchema).optional().nullable(),
@@ -16,9 +16,20 @@ export const tagSchema = z.object({
   updated_at: z.string().optional(),
 });
 
+export const creatorSchema = z.object({
+  id: z.string(),
+  username: z.string(),
+  email: z.string().optional(),
+  role: z.string().optional(),
+  avatar: z.string().nullable().optional(),
+  is_banned: z.boolean().optional(),
+  created_at: z.string().optional(),
+  updated_at: z.string().optional(),
+});
+
 export const comicTranslationSchema = z.object({
-  id: z.uuid(),
-  comic_id: z.uuid(),
+  id: z.string(),
+  comic_id: z.string(),
   language_code: z.string(),
   title: z.string(),
   synopsis: z.string().optional().nullable(),
@@ -28,22 +39,22 @@ export const comicTranslationSchema = z.object({
 });
 
 export const chapterTranslationSchema = z.object({
-  id: z.uuid(),
-  chapter_id: z.uuid(),
+  id: z.string(),
+  chapter_id: z.string(),
   language_code: z.string(),
   title: z.string().optional().nullable(),
 });
 
 export const chapterImageSchema = z.object({
-  id: z.uuid(),
-  chapter_id: z.uuid(),
+  id: z.string(),
+  chapter_id: z.string(),
   image_url: z.string(),
   order: z.number(),
 });
 
 export const chapterSchema = z.object({
-  id: z.uuid(),
-  comic_id: z.uuid(),
+  id: z.string(),
+  comic_id: z.string(),
   chapter_number: z.number(),
   status: z
     .enum([
@@ -61,9 +72,9 @@ export const chapterSchema = z.object({
 });
 
 export const comicSchema = z.object({
-  id: z.uuid(),
-  creator_id: z.uuid(),
-  author: z.string(),
+  id: z.string(),
+  creator_id: z.string(),
+  creator: creatorSchema.optional().nullable(),
   tags: z.array(tagSchema).optional().nullable(),
   cover_image_url: z.string(),
   publish_status: z.enum([
@@ -89,7 +100,7 @@ export const comicSchema = z.object({
 export const comicsResponseSchema = z.array(comicSchema);
 
 export const comicAuthorSchema = z.object({
-  id: z.uuid(),
+  id: z.string(),
   username: z.string(),
 });
 

@@ -10,15 +10,13 @@ type ComicGridProps = {
 export function ComicGrid({ tags }: ComicGridProps) {
   const { data: comics, isLoading, error } = useComics(tags);
 
-  console.log("comics:", comics);
-
   if (isLoading) {
     return <ComicGridSkeleton />;
   }
 
   if (error) {
     return (
-      <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-red-600 dark:border-red-800 dark:bg-red-900/20 dark:text-red-400">
+      <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-red-600">
         Failed to load comics. Please try again later.
       </div>
     );
@@ -26,9 +24,7 @@ export function ComicGrid({ tags }: ComicGridProps) {
 
   if (!comics || comics.length === 0) {
     return (
-      <div className="text-center text-zinc-500 dark:text-zinc-400">
-        No comics available yet.
-      </div>
+      <div className="text-center text-zinc-500">No comics available yet.</div>
     );
   }
 
