@@ -1,26 +1,50 @@
-"use client";
-
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 import UserMenu from "./user-menu";
+import LanguageSwitcher from "./language-switcher";
 
-export default function Header() {
-  const t = useTranslations("Header");
+export default async function Header() {
+  const t = await getTranslations("Header");
 
   return (
     <header
       className={cn(
         "fixed top-0 left-0 right-0 z-50",
-        "h-16 border-b border-zinc-200 dark:border-zinc-800",
-        "bg-white/80 backdrop-blur-md dark:bg-zinc-950/80"
+        "h-12 border-b border-zinc-200",
+        "bg-white/80 backdrop-blur-md",
       )}
     >
       <div className="container flex h-full items-center justify-between">
-        {/* Logo/Title */}
-        <div className="font-bold text-xl">{t("title")}</div>
+        <div className="flex gap-8">
+          <Link href="/" className="font-bold text-xl">
+            Webteen
+          </Link>
+          <Link
+            href="/browse"
+            className="font-bold text-xl text-gray-800 hover:underline"
+          >
+            {t("browse")}
+          </Link>
+          <Link
+            href="/library"
+            className="font-bold text-xl text-gray-800 hover:underline"
+          >
+            {t("library")}
+          </Link>
 
-        {/* User Menu */}
-        <UserMenu />
+          <Link
+            href="/creator/publish"
+            className="font-bold text-xl text-gray-800 hover:underline"
+          >
+            {t("creator")}
+          </Link>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <UserMenu />
+          <LanguageSwitcher />
+        </div>
       </div>
     </header>
   );

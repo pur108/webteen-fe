@@ -4,6 +4,7 @@ import "./globals.css";
 
 import { NextIntlClientProvider } from "next-intl";
 import { QueryProvider } from "@/providers/query-provider";
+import { SessionProvider } from "@/providers/session-provider";
 import Header from "@/components/header/header";
 
 const geistSans = Geist({
@@ -31,12 +32,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen pt-16`}
       >
-        <QueryProvider>
-          <NextIntlClientProvider>
-            <Header />
-            <main className="min-h-[calc(100vh-4rem)]">{children}</main>
-          </NextIntlClientProvider>
-        </QueryProvider>
+        <SessionProvider>
+          <QueryProvider>
+            <NextIntlClientProvider>
+              <Header />
+              <main className="min-h-[calc(100vh-4rem)]">{children}</main>
+            </NextIntlClientProvider>
+          </QueryProvider>
+        </SessionProvider>
       </body>
     </html>
   );

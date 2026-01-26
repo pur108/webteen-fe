@@ -1,12 +1,14 @@
 {
-  "HomePage": {
-    "title": "Welcome to WebTeen!"
-  },
   "Header": {
-    "title": "WebTeen",
-    "login": "Login",
-    "signup": "Sign up",
+    "browse": "Browse",
+    "library": "Library",
+    "creator": "Creator",
+
+    "creatorDashboard": "Creator DashBoard",
+    "adminDashboard": "Admin DashBoard",
+
+    "signInWithGoogle": "Sign in with Google",
     "settings": "Settings",
-    "language": "Interface Language"
+    "logout": "logout"
   }
 }
